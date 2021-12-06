@@ -1,0 +1,24 @@
+.card-deck
+  - @comments.each do |comment|
+    .card.mt-2
+      .card-body.h5.card-title
+        %h6
+          = comment.msg
+        .div{:style=>"display:block"}
+          .h6{:style=>"width:200px; display:inline;"}
+            = "by : #{User.find(comment.user_id).display_name}"
+          %div.fixed.h6{:style=>"display:inline; position:fixed; left:300px"}
+            = "Time : #{comment.updated_at.strftime("%b %d, 20%y %k:%M")}"
+        .div{:style=>"display:block"}
+          .div{:style=>"display:inline"}
+            = simple_form_for(@like, method: :post, url: makelike_path(comment.id)) do |f|
+              .form-actions
+                -if comment.likes.find { |like| like.user_id == @user.id}
+                  = f.button :submit,'Unlike',class:'btn btn-outline-danger mt-2',action:'Unlike'
+                -else
+                  = f.button :submit,'Like',class:'btn btn-outline-success mt-2',action:'Like'
+                %h6{:style=>"display:inline; position:fixed; left:300px; margin-top:15px"}
+                  = "Total like : #{comment.likes.count}"
+                -if (comment.user_id == @user.id)
+                  %h6{:style=>"display:inline; position:fixed; left:600px; margin-top:15px;"}
+                    = link_to 'Delete', deletecomment_path(comment.id),data: { confirm: 'Are you sure to delete this comment?' },class:'btn btn-outline-danger mt-2'

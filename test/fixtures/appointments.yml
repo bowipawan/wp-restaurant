@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  table: one
+  time_start: 2021-12-04 17:40:53
+  people_amount: 1
+
+two:
+  user: two
+  table: two
+  time_start: 2021-12-04 17:40:53
+  people_amount: 1

@@ -1,0 +1,18 @@
+%h1{:style=>"margin-bottom:50px"} Home
+
+%div{:style=>"float:left"}
+	%h4 #{@user.display_name}
+	= link_to 'Edit Profile', profile_path, class:"btn btn-outline-dark mt-2"
+	
+	
+%div{:style=>"float:left; margin-left:50px"}
+	%h4 Appointment
+	- if @appointments.count == 0
+		%h7 There is no appointment.
+	- else
+		- if @appointments.count == 1
+			%h7 There is 1 appointment.
+		- else
+			%h7 There are #{@appointments.count} appointments.
+		= render "main/appointment"
+

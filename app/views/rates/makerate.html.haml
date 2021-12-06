@@ -1,0 +1,14 @@
+%h1{:style=>"margin-bottom:50px"} #{@restaurant.restaurant_name}
+
+= simple_form_for @rate, url: submitrate_path(@restaurant.restaurant_name), method: :post do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    %div
+      = f.label :rate_score, style:"width:150px"
+      = f.input_field :rate_score, min:"0", max:"5"
+
+  .form-actions
+    = f.button :submit,'Rate', class:'btn btn-outline-success mt-2', action:'Rate'
+    = f.button :submit,'Back', class:'btn btn-outline-danger mt-2', action:'Back'

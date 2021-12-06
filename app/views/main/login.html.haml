@@ -1,0 +1,20 @@
+.div{style:"text-align:center"}
+  %h1 Restaurant Booking
+
+  .div{class:[alert && "alert alert-danger"]}
+    = alert
+  .div{class:[notice && "alert alert-success"]}
+    = notice
+
+  .div{style:"display: flex; justify-content: center;"}
+    .div{style:"width:200px;"}
+      = simple_form_for @user, url: '/login', method: :post do |f|
+        .form-inputs.row
+          = f.label :email, style:"text-align:left"
+          = f.input_field :email, required:true
+          = f.label :password, style:"text-align:left"
+          = f.input_field :password, required:true
+
+        .form-actions
+          = f.button :submit, 'Sign In', class:"btn btn-outline-dark mt-2"
+          = link_to 'Sign Up', register_path, class:"btn btn-outline-dark mt-2"

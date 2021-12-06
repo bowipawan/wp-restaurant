@@ -1,0 +1,25 @@
+%h1 Listing rates
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Restaurant
+      %th Rate score
+      %th
+      %th
+      %th
+
+  %tbody
+    - @rates.each do |rate|
+      %tr
+        %td= rate.user
+        %td= rate.restaurant
+        %td= rate.rate_score
+        %td= link_to 'Show', rate
+        %td= link_to 'Edit', edit_rate_path(rate)
+        %td= link_to 'Destroy', rate, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Rate', new_rate_path

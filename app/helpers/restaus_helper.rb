@@ -1,0 +1,2 @@
+module RestausHelper
+end

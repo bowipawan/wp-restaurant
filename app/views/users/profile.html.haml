@@ -1,0 +1,23 @@
+%h1{:style=>"margin-bottom:50px"} Edit Profile
+
+= simple_form_for @user, url: submitprofile_path, method: :post do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs{style:"margin-bottom:10px"}
+    %div{style:"display:block;margin-bottom:10px"}
+      = f.label :email, style:"width:150px"
+      = f.input_field :email
+    %div{style:"display:block;margin-bottom:10px"}
+      = f.label :display_name, style:"width:150px"
+      = f.input_field :display_name
+    %div{style:"display:block;margin-bottom:10px"}
+      = f.label :password, style:"width:150px"
+      = f.input_field :password
+    %h5
+      = f.button :submit,'Delete Account', style:'color:red; text-decoration:underline;', action:'Delete', data: { confirm: 'Are you sure to delete this account?' }
+
+  .form-actions
+    = f.button :submit,'Save', class:'btn btn-outline-success mt-2', action:'Save'
+    = f.button :submit,'Cancel', class:'btn btn-outline-danger mt-2', action:'Cancel'
+

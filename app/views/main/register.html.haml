@@ -1,0 +1,22 @@
+.div{style:"text-align:center"}
+  %h1 Sign Up
+
+  .div{class:[alert && "alert alert-danger"]}
+    = alert
+
+  .div{style:"display: flex; justify-content: center;"}
+    .div{style:"width:400px;"}
+      = simple_form_for @user, url: '/register', method: :post do |f|
+        .form-inputs.row
+          = f.label :email, style:"text-align:left"
+          = f.input_field :email, required:true
+          = f.label :display_name, style:"text-align:left"
+          = f.input_field :display_name, required:true
+          = f.label :password, style:"text-align:left"
+          = f.input_field :password, required:true
+          = f.label :password_confirmation, style:"text-align:left"
+          = f.input_field :password_confirmation, required:true
+
+        .form-actions
+          = f.button :submit, 'Sign Up', class:"btn btn-outline-success mt-2"
+          = link_to 'Back', home_path, class:"btn btn-outline-dark mt-2"

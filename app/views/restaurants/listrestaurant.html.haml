@@ -1,0 +1,17 @@
+%h1{:style=>"margin-bottom:50px"} Restaurant
+
+%table#table
+  %thead
+    %tr
+      %th Restaurant
+      %th Max Table
+      %th Rate
+      %th
+
+  %tbody
+    - @restaurants.each do |restaurant|
+      %tr
+        %td= restaurant.restaurant_name
+        %td= restaurant.tables.count
+        %td= restaurant.rates.average(:rate_score) == nil ? 0.0 : restaurant.rates.average(:rate_score)
+        %td= link_to 'Go', showrestaurant_path(restaurant.restaurant_name), class:"btn btn-outline-dark mt-2"

@@ -1,0 +1,17 @@
+%h1{:style=>"margin-bottom:50px"} Favorite Restaurants
+
+%table#table
+  %thead
+    %tr
+      %th Restaurant
+      %th Max Table
+      %th
+      %th
+
+  %tbody
+    - @favorites.each do |favorite|
+      %tr
+        %td= favorite.restaurant_name
+        %td= favorite.tables.count
+        %td= link_to 'Go', showrestaurant_path(favorite.restaurant_name), class:"btn btn-outline-dark mt-2"
+        %td= link_to 'Unfavorite', deletefavorite_path(favorite.restaurant_name), class:"btn btn-outline-danger mt-2", data: { confirm: 'Are you sure to unfavorite #{favorite.restaurant_name}?' }

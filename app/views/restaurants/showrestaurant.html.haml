@@ -1,0 +1,31 @@
+%h1 #{@restaurant.restaurant_name}
+%h5{:style=>"margin-bottom:50px"}
+	-if @rate == nil
+		= "(No rating)"
+	-else
+		= "( #{@rate} / 5.0 )"
+
+.div{class:[notice && "alert alert-success"]}
+	= notice
+.div{class:[alert && "alert alert-danger"]}
+	= alert
+
+%div{:style=>"float:left; width:75%"}
+	- if @comments.count == 0
+		%h7 There is no comment for this restaurant.
+	- else
+		= render "restaurants/comment"
+
+%div{:style=>"float:left; margin-left:50px"}
+	= simple_form_for(@favorite, method: :post, url: submitfavorite_path(@restaurant.id)) do |f|
+		.form-actions
+			-if @user.favorites.find { |favorite| favorite.restaurant_id == @restaurant.id}
+				= f.button :submit,'Unfavorite',class:'btn btn-outline-danger mt-2',action:'Unfavorite'
+			-else
+				= f.button :submit,'Favorite',class:'btn btn-outline-success mt-2',action:'Favorite'
+	.div{style:"margin-bottom:15px"}
+		= link_to 'Booking', makeappointment_path(@restaurant.restaurant_name), class:"btn btn-outline-dark mt-2"
+	.div{style:"margin-bottom:15px"}
+		= link_to 'Rate', makerate_path(@restaurant.restaurant_name), class:"btn btn-outline-dark mt-2"
+	.div
+		= link_to 'Comment', makecomment_path(@restaurant.restaurant_name), class:"btn btn-outline-dark mt-2"

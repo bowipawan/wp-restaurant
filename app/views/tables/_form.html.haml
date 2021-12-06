@@ -1,0 +1,19 @@
+= form_for @table do |f|
+  - if @table.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@table.errors.count, "error")} prohibited this table from being saved:"
+      %ul
+        - @table.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :customer_cap
+    = f.text_field :customer_cap
+  .field
+    = f.label :table_number
+    = f.text_field :table_number
+  .field
+    = f.label :restau_id
+    = f.text_field :restau_id
+  .actions
+    = f.submit 'Save'

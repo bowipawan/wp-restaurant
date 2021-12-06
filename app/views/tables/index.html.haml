@@ -1,0 +1,25 @@
+%h1 Listing tables
+
+%table
+  %thead
+    %tr
+      %th Customer cap
+      %th Table number
+      %th Restau
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tables.each do |table|
+      %tr
+        %td= table.customer_cap
+        %td= table.table_number
+        %td= table.restau_id
+        %td= link_to 'Show', table
+        %td= link_to 'Edit', edit_table_path(table)
+        %td= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Table', new_table_path

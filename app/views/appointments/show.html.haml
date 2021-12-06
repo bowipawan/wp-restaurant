@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @appointment.user
+%p
+  %b Table:
+  = @appointment.table
+%p
+  %b Time start:
+  = @appointment.time_start
+%p
+  %b People amount:
+  = @appointment.people_amount
+
+= link_to 'Edit', edit_appointment_path(@appointment)
+\|
+= link_to 'Back', appointments_path

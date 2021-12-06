@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Customer cap:
+  = @table.customer_cap
+%p
+  %b Table number:
+  = @table.table_number
+%p
+  %b Restau:
+  = @table.restau_id
+
+= link_to 'Edit', edit_table_path(@table)
+\|
+= link_to 'Back', tables_path

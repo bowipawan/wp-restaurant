@@ -1,0 +1,33 @@
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark{:style=>"margin-bottom:50px"}
+  .container-fluid
+    .navbar-brand Booking Restaurant
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      - if session[:user_id]
+        %ul.navbar-nav.me-auto
+          %li.nav-item
+            %a.nav-link.h6{href:home_path} Home
+          %li.nav-item
+            %a.nav-link.h6{href:listfavorite_path} Favorite
+          %li.nav-item
+            %a.nav-link.h6{href:listrestaurant_path} Restaurant
+          / %li.nav-item.dropdown
+          /   %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
+          /     Dropdown
+          /   %ul.dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+          /     %li
+          /       %a.dropdown-item{:href => "#"} Action
+          /     %li
+          /       %a.dropdown-item{:href => "#"} Another action
+          /     %li
+          /       %hr.dropdown-divider/
+          /     %li
+          /       %a.dropdown-item{:href => "#"} Something else here
+          / %li.nav-item
+          /   %a.nav-link.disabled{"aria-disabled" => "true", :href => "#", :tabindex => "-1"} Disabled
+        %ul.navbar-nav.d-flex
+          %a.nav-link.h6{:href => logout_path} Log Out
+        
+
+
