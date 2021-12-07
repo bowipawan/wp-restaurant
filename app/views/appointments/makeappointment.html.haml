@@ -1,42 +1,52 @@
 %h1{:style=>"margin-bottom:50px"} #{@restaurant.restaurant_name}
 
-%h3 Available Table
+%h3{:style=>"margin-bottom:30px"} Available Table
 
-%table#table
-  %thead
-    %tr
-      %th Table Number
-      %th Capacity
-      %th 10:00 - 12:00
-      %th 12:00 - 14:00
-      %th 14:00 - 16:00
-      %th 16:00 - 18:00
-      %th 18:00 - 20:00
-      %th 20:00 - 22:00
-
-  %tbody
-    - @tables.each do |table, appointments|
+%div{:style=>"margin-bottom:50px"}
+  %table#table
+    %thead
       %tr
-        %td= table.table_number
-        %td= table.customer_cap
-        %td= appointments.include?(10) ? "N" : "Y"
-        %td= appointments.include?(12) ? "N" : "Y"
-        %td= appointments.include?(14) ? "N" : "Y"
-        %td= appointments.include?(16) ? "N" : "Y"
-        %td= appointments.include?(18) ? "N" : "Y"
-        %td= appointments.include?(20) ? "N" : "Y"
+        %th Table Number
+        %th Capacity
+        %th 10:00 - 12:00
+        %th 12:00 - 14:00
+        %th 14:00 - 16:00
+        %th 16:00 - 18:00
+        %th 18:00 - 20:00
+        %th 20:00 - 22:00
 
+    %tbody
+      - @tables.each do |table, appointments|
+        %tr
+          %td= table.table_number
+          %td= table.customer_cap
+          %td= appointments.include?(10) ? "N" : "Y"
+          %td= appointments.include?(12) ? "N" : "Y"
+          %td= appointments.include?(14) ? "N" : "Y"
+          %td= appointments.include?(16) ? "N" : "Y"
+          %td= appointments.include?(18) ? "N" : "Y"
+          %td= appointments.include?(20) ? "N" : "Y"
 
-/ = simple_form_for @appointment, url: submitappointment_path(@restaurant.restaurant_name), method: :post do |f|
-/   = f.error_notification
-/   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+= simple_form_for @appointment, url: submitappointment_path(@restaurant.restaurant_name), method: :post do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-/   .form-inputs
-/     %div
-/       = f.input :table "Choose Table", required:true
-/       = f.input :time_start, as: :select, collection:["10:00","12:00"]
+  
+  .form-inputs
+    = simple_fields_for :other do |o|
+      %div
+        = o.label :table_number, "Choose Table", class:"h5", style:"width:200px"
+        = o.select :table_number, @restaurant.tables.map { |table| table.table_number}
+      %div
+        = o.label :time, "Choose Time", class:"h5", style:"width:200px"
+        = o.select :time, [["10:00 - 12:00",10],["12:00 - 14:00",12],["14:00 - 16:00",14],["16:00 - 18:00",16],["18:00 - 20:00",18],["20:00 - 22:00",20]]
+      %div
+        = o.label :poeple, "People Amount", class:"h5", style:"width:200px"
+        = o.input_field :people, as: :numeric, min:1
 
-/   .form-actions
-/     = f.button :submit,'Confirm', class:'btn btn-outline-success mt-2', action:'Confirm'
-/     = f.button :submit,'Back', class:'btn btn-outline-danger mt-2', action:'Back'
-/         
+  .form-actions
+    = f.button :submit,'Confirm', class:'btn btn-outline-success mt-2', action:'Confirm', data: { confirm: "You are booking #{@restaurant.restaurant_name} table #{params[:table_number]} at?" }
+    = f.button :submit,'Back', class:'btn btn-outline-danger mt-2', action:'Back'
+      
+
+  
