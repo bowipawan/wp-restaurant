@@ -1,1 +1,13 @@
-Make comment
+%h1{:style=>"margin-bottom:50px"} Comment #{@restaurant.restaurant_name}
+
+= simple_form_for @comment, url: submitcomment_path(@restaurant.restaurant_name), method: :post do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    %div
+      = f.text_area :msg, label: false, style:"margin-bottom:20px"
+
+  .form-actions
+    = f.button :submit,'Comment', class:'btn btn-outline-success mt-2', action:'Comment'
+    = f.button :submit,'Back', class:'btn btn-outline-danger mt-2', action:'Back'

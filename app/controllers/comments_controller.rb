@@ -2,10 +2,34 @@ class CommentsController < ApplicationController
   include MainConcern
 
   before_action :set_comment, only: %i[ show edit update destroy ]
-  before_action :check_login, only: %i[ makecomment ]
-  before_action :set_user, only: %i[ makecomment ]
+  before_action :check_login, only: %i[ makecomment submitcomment delete ]
+  before_action :set_user, only: %i[ makecomment submitcomment delete ]
 
   def makecomment
+    @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
+    @comment = Comment.find_by(user_id:@user.id)
+    if (@comment == nil)
+      @comment = Comment.new
+    end
+  end
+
+  def submitcomment
+    @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
+    if(params[:commit]=='Comment')
+      @comment = Comment.find_by(user_id:@user.id)
+      if (@comment == nil)
+        @comment = Comment.new(comment_params)
+        @comment.restaurant_id = @restaurant.id
+        @comment.user_id = @user.id
+        redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have commented #{@restaurant.restaurant_name}."
+      else
+        @comment.update(comment_params)
+        redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have edited comment for #{@restaurant.restaurant_name}."
+      end
+      @comment.save
+    else
+      redirect_to showrestaurant_path(@restaurant.restaurant_name)
+    end
   end
 
   def delete

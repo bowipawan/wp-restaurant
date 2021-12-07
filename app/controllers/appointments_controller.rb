@@ -5,7 +5,7 @@ class AppointmentsController < ApplicationController
   before_action :check_login, only: %i[ makeappointment ]
   before_action :set_user, only: %i[ makeappointment ]
 
-  def makeappointment  
+  def makeappointment
   end
 
   def delete

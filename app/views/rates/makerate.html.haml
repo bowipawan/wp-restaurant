@@ -1,4 +1,4 @@
-%h1{:style=>"margin-bottom:50px"} #{@restaurant.restaurant_name}
+%h1{:style=>"margin-bottom:50px"} Rate #{@restaurant.restaurant_name}
 
 = simple_form_for @rate, url: submitrate_path(@restaurant.restaurant_name), method: :post do |f|
   = f.error_notification

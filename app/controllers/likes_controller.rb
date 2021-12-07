@@ -2,20 +2,24 @@ class LikesController < ApplicationController
   include MainConcern
 
   before_action :set_like, only: %i[ show edit update destroy ]
-  before_action :check_login, only: %i[ makelike ]
-  before_action :set_user, only: %i[ makelike ]
+  before_action :check_login, only: %i[ submitlike ]
+  before_action :set_user, only: %i[ submitlike ]
 
-  def makelike
+  def submitlike
     @comment = Comment.find(params[:id])
+    @restaurant = Restaurant.find(@comment.restaurant_id)
     if(params[:commit]=='Like')
       Like.create(user:@user,comment:@comment).save
+      redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have liked comment."
     else
       @like = Like.find_by(user:@user,comment:@comment)
       if (@like != nil)
         @like.destroy
+        redirect_to showrestaurant_path(@restaurant.restaurant_name), alert: "You have unliked comment."
+      else
+        redirect_to showrestaurant_path(Restaurant.find(@comment.restaurant_id).restaurant_name)
       end
     end
-    redirect_to showrestaurant_path(Restaurant.find(@comment.restaurant_id).restaurant_name)
   end
 
   # GET /likes or /likes.json

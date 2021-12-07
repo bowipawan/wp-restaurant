@@ -11,7 +11,7 @@
             = "Time : #{comment.updated_at.strftime("%b %d, 20%y %k:%M")}"
         .div{:style=>"display:block"}
           .div{:style=>"display:inline"}
-            = simple_form_for(@like, method: :post, url: makelike_path(comment.id)) do |f|
+            = simple_form_for(@like, method: :post, url: submitlike_path(comment.id)) do |f|
               .form-actions
                 -if comment.likes.find { |like| like.user_id == @user.id}
                   = f.button :submit,'Unlike',class:'btn btn-outline-danger mt-2',action:'Unlike'

@@ -7,7 +7,10 @@ class RatesController < ApplicationController
 
   def makerate
     @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
-    @rate = Rate.new
+    @rate = Rate.find_by(user_id:@user.id)
+    if (@rate == nil)
+      @rate = Comment.new
+    end
   end
 
   def submitrate
@@ -22,7 +25,7 @@ class RatesController < ApplicationController
       else
         @old_rate = @rate.rate_score
         @rate.update(rate_params)
-        redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have changed rating #{@restaurant.restaurant_name} from score #{@old_rate} to #{@rate.rate_score}."
+        redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have changed rate for #{@restaurant.restaurant_name} from score #{@old_rate} to #{@rate.rate_score}."
       end
       @rate.save
     else
