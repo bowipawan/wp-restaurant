@@ -6,7 +6,7 @@
 
   .form-inputs
     %div
-      = f.text_area :msg, label: false, style:"margin-bottom:20px"
+      = f.text_area :msg, required:true, label: false, style:"margin-bottom:20px;width:800px;height:100px", placeholder: "Write your comment ..."
 
   .form-actions
     = f.button :submit,'Comment', class:'btn btn-outline-success mt-2', action:'Comment'

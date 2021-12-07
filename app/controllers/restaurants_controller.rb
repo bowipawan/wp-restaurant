@@ -11,7 +11,7 @@ class RestaurantsController < ApplicationController
 
   def showrestaurant
     @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
-    @comments = Comment.where(restaurant_id:@restaurant.id)
+    @comments = Comment.where(restaurant_id:@restaurant.id).sort_by{ |obj| obj.updated_at }.reverse!
     @like = Like.new
     @favorite = Favorite.new
     @rate = @restaurant.rates.average(:rate_score)

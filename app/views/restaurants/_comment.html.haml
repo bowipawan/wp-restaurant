@@ -20,5 +20,5 @@
                 %h6{:style=>"display:inline; position:fixed; left:300px; margin-top:15px"}
                   = "Total like : #{comment.likes.count}"
                 -if (comment.user_id == @user.id)
-                  %h6{:style=>"display:inline; position:fixed; left:600px; margin-top:15px;"}
+                  %h6{:style=>"display:inline; position:fixed; left:600px;"}
                     = link_to 'Delete', deletecomment_path(comment.id),data: { confirm: 'Are you sure to delete this comment?' },class:'btn btn-outline-danger mt-2'

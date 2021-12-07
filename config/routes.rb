@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :restaurants
   resources :tables
   resources :users
-
+  #main
   get '/', to: "main#main", as: 'main'
   get 'login', to: "main#login", as: 'login'
   post 'login', to: "main#logging_in"
@@ -15,27 +15,29 @@ Rails.application.routes.draw do
   post 'register', to: "users#create"
   get 'logout', to: "main#logout", as: 'logout'
   get 'home', to: "main#home", as: 'home'
-
+  #appointment
   get 'appointment/:restaurant_name', to: "appointments#makeappointment", as: 'makeappointment'
+  post 'appointment/:restaurant_name/submit', to: "comments#submitappointment", as: 'submitappointment'
   get 'appointment/:id/delete', to: "appointments#delete", as: 'deleteappointment'
-  
-  get 'favorite', to: "favorites#listfavorite", as: 'listfavorite'
-  post 'restaurant/:id/favorite', to: "favorites#submitfavorite", as: 'submitfavorite'
-  get 'favorite/:restaurant_name/delete', to: "favorites#delete", as: 'deletefavorite'
-  
-  get 'profile', to: "users#profile", as: 'profile'
-  post 'profile/submit', to: "users#submitprofile", as: 'submitprofile'
-  
-  get 'restaurant/list', to: "restaurants#listrestaurant", as: 'listrestaurant'
-  get 'restaurant/:restaurant_name', to: "restaurants#showrestaurant", as: 'showrestaurant'
-  get 'restaurant/id/:restaurant_id', to: "restaurants#showrestaurantid", as: 'showrestaurantid'
-  
-  post 'comment/:id/like', to: "likes#submitlike", as: 'submitlike'
-  
-  get 'rate/:restaurant_name', to: "rates#makerate", as: 'makerate'
-  post 'rate/:restaurant_name/submit', to: "rates#submitrate", as: 'submitrate'
-  
+  #comment
   get 'comment/:restaurant_name', to: "comments#makecomment", as: 'makecomment'
   post 'comment/:restaurant_name/submit', to: "comments#submitcomment", as: 'submitcomment'
   get 'comment/:id/delete', to: "comments#delete", as: 'deletecomment'
+  #favorite
+  get 'favorite', to: "favorites#listfavorite", as: 'listfavorite'
+  post 'restaurant/:id/favorite', to: "favorites#submitfavorite", as: 'submitfavorite'
+  get 'favorite/:restaurant_name/delete', to: "favorites#delete", as: 'deletefavorite'
+  #like
+  post 'comment/:id/like', to: "likes#submitlike", as: 'submitlike'
+  #rate
+  get 'rate/:restaurant_name', to: "rates#makerate", as: 'makerate'
+  post 'rate/:restaurant_name/submit', to: "rates#submitrate", as: 'submitrate'
+  #restaurant
+  get 'restaurant/list', to: "restaurants#listrestaurant", as: 'listrestaurant'
+  get 'restaurant/:restaurant_name', to: "restaurants#showrestaurant", as: 'showrestaurant'
+  get 'restaurant/id/:restaurant_id', to: "restaurants#showrestaurantid", as: 'showrestaurantid'
+  #user
+  get 'profile', to: "users#profile", as: 'profile'
+  post 'profile/submit', to: "users#submitprofile", as: 'submitprofile'
+  
 end

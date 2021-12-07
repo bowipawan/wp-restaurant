@@ -2,18 +2,33 @@ class AppointmentsController < ApplicationController
   include MainConcern
 
   before_action :set_appointment, only: %i[ show edit update destroy delete ]
-  before_action :check_login, only: %i[ makeappointment ]
-  before_action :set_user, only: %i[ makeappointment ]
+  before_action :check_login, only: %i[ makeappointment submitappointment delete ]
+  before_action :set_user, only: %i[ makeappointment submitappointment delete ]
 
   def makeappointment
+    @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
+    @tables = @restaurant.tables.map { |table|
+      [table,
+        table.appointments.where(time_start: Date.today.all_day).map { |app| app[:time_start].hour()}
+      ] }.to_h
+    @appointment = Appointment.new
+  end
+
+  def submitappointment
+    @table = Table.find_by(table_number:params[:table_number])
+    @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
+    if(params[:commit]=='Confirm')
+      @appointment = Appointment.new(appointment_params)
+      @appointment.save
+      redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have booked #{@restaurant.restaurant_name}."
+    else
+      redirect_to showrestaurant_path(@restaurant.restaurant_name)
+    end
   end
 
   def delete
     @appointment.destroy
-    respond_to do |format|
-      format.html { redirect_to home_url, notice: "Appointment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to home_url, notice: "Appointment was successfully destroyed."
   end
 
   # GET /appointments or /appointments.json

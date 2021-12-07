@@ -1,1 +1,42 @@
-Make appointment
+%h1{:style=>"margin-bottom:50px"} #{@restaurant.restaurant_name}
+
+%h3 Available Table
+
+%table#table
+  %thead
+    %tr
+      %th Table Number
+      %th Capacity
+      %th 10:00 - 12:00
+      %th 12:00 - 14:00
+      %th 14:00 - 16:00
+      %th 16:00 - 18:00
+      %th 18:00 - 20:00
+      %th 20:00 - 22:00
+
+  %tbody
+    - @tables.each do |table, appointments|
+      %tr
+        %td= table.table_number
+        %td= table.customer_cap
+        %td= appointments.include?(10) ? "N" : "Y"
+        %td= appointments.include?(12) ? "N" : "Y"
+        %td= appointments.include?(14) ? "N" : "Y"
+        %td= appointments.include?(16) ? "N" : "Y"
+        %td= appointments.include?(18) ? "N" : "Y"
+        %td= appointments.include?(20) ? "N" : "Y"
+
+
+/ = simple_form_for @appointment, url: submitappointment_path(@restaurant.restaurant_name), method: :post do |f|
+/   = f.error_notification
+/   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+/   .form-inputs
+/     %div
+/       = f.input :table "Choose Table", required:true
+/       = f.input :time_start, as: :select, collection:["10:00","12:00"]
+
+/   .form-actions
+/     = f.button :submit,'Confirm', class:'btn btn-outline-success mt-2', action:'Confirm'
+/     = f.button :submit,'Back', class:'btn btn-outline-danger mt-2', action:'Back'
+/         
