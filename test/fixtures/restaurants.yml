@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  restaurant_name: MyString
+  restaurant_name: one
 
 two:
-  restaurant_name: MyString
+  restaurant_name: two

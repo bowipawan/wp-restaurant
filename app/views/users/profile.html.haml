@@ -4,9 +4,10 @@
 
   .form-inputs{style:"margin-bottom:10px"}
     %div{style:"margin-bottom:10px"}
-      = f.input :display_name
-    %h5
-      = f.button :submit,'Delete Account', style:'color:red; text-decoration:underline;', action:'Delete', data: { confirm: 'Are you sure to delete this account?' }
+      = f.label :display_name, required:false
+      = f.input_field :display_name, required:false
+    / %h6
+    /   = link_to 'Delete account', deleteuser_path(user_id:@user.id), style:'color:red; text-decoration:underline;', data: { confirm: 'Are you sure to delete this account?' }
 
   .form-actions
     = f.button :submit,'Save', class:'btn btn-outline-success mt-2', action:'Save'

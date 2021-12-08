@@ -39,5 +39,6 @@ Rails.application.routes.draw do
   #user
   get 'profile', to: "users#profile", as: 'profile'
   post 'profile', to: "users#submitprofile", as: 'submitprofile'
+  get 'account/delete', to: "users#delete", as: 'deleteuser'
   
 end

@@ -64,6 +64,6 @@ class TablesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def table_params
-      params.require(:table).permit(:customer_cap, :table_number, :restau_id_id)
+      params.require(:table).permit(:customer_cap, :table_number, :restaurant_id)
     end
 end

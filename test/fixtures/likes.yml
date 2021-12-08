@@ -3,7 +3,7 @@
 one:
   user: one
   comment: one
-  like_type: false
+  like_type: true
 
 two:
   user: two

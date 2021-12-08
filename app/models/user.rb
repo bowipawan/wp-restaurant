@@ -4,8 +4,8 @@ class User < ApplicationRecord
 	validates(:display_name, presence: true)
 	validates(:password_digest, presence: true)
 	validates_confirmation_of :password
-	has_many :appointments, dependent: :delete_all
-	has_many :comments, dependent: :delete_all
-	has_many :favorites, dependent: :delete_all
-	has_many :likes, dependent: :delete_all
+	has_many :appointments, dependent: :destroy
+	has_many :comments, dependent: :destroy
+	has_many :favorites, dependent: :destroy
+	has_many :likes, dependent: :destroy
 end

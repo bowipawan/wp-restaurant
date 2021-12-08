@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   include MainConcern
 
   before_action :find_user, only: %i[ show edit update destroy ]
-  before_action :check_login, only: %i[ profile submitprofile ]
-  before_action :set_user, only: %i[ profile submitprofile ]
+  before_action :check_login, only: %i[ profile submitprofile deleteuser ]
+  before_action :set_user, only: %i[ profile submitprofile deleteuser ]
 
   def profile
   end
@@ -15,14 +15,29 @@ class UsersController < ApplicationController
       redirect_to login_path, alert: "Successfully delete account."
     elsif(params[:commit]=='Save')
       @new_name = params[:user][:display_name]
-      @old_name = @user.display_name
-      if @user.update(display_name:@new_name)
-        redirect_to home_path, notice: "You have changed display name from #{@old_name} to #{@user.display_name}."
+      if (@new_name == "")
+        redirect_to home_path
       else
-        redirect_to profile_path, alert: @user.errors.full_messages.to_sentence
+        @old_name = @user.display_name
+        if @user.update(display_name:@new_name)
+          redirect_to home_path, notice: "You have changed display name from #{@old_name} to #{@user.display_name}."
+        else
+          redirect_to profile_path, alert: @user.errors.full_messages.to_sentence
+        end
       end
     else
       redirect_to home_path
+    end
+  end
+
+  def delete
+    @user = User.find(params[:user_id])
+    if @user
+      session[:id] = nil
+      @user.destroy
+      redirect_to login_path, alert: "Successfully delete account."
+    else
+      redirect_to home_path, alert: "Cannot delete this account."
     end
   end
 
