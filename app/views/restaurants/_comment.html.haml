@@ -13,12 +13,19 @@
           .div{:style=>"display:inline"}
             = simple_form_for(@like, method: :post, url: submitlike_path(comment.id)) do |f|
               .form-actions
-                -if comment.likes.find { |like| like.user_id == @user.id}
-                  = f.button :submit,'Unlike',class:'btn btn-outline-danger mt-2',action:'Unlike'
+                -if comment.likes.find { |like| like.user_id == @user.id && like.like_type == true}
+                  = f.button :submit,'Unlike',class:'btn btn-outline-success mt-2',action:'Unlike'
                 -else
                   = f.button :submit,'Like',class:'btn btn-outline-success mt-2',action:'Like'
+
+                -if comment.likes.find { |like| like.user_id == @user.id && like.like_type == false}
+                  = f.button :submit,'Undislike',class:'btn btn-outline-danger mt-2',action:'Undislike'
+                -else
+                  = f.button :submit,'Dislike',class:'btn btn-outline-danger mt-2',action:'Dislike'
+
                 %h6{:style=>"display:inline; position:fixed; left:300px; margin-top:15px"}
-                  = "Total like : #{comment.likes.count}"
+                  = "Total like : #{[comment.likes.where(like_type:true).count-comment.likes.where(like_type:false).count,0].max}"
                 -if (comment.user_id == @user.id)
                   %h6{:style=>"display:inline; position:fixed; left:600px;"}
                     = link_to 'Delete', deletecomment_path(comment.id),data: { confirm: 'Are you sure to delete this comment?' },class:'btn btn-outline-danger mt-2'
+

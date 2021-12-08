@@ -18,20 +18,20 @@ class MainController < ApplicationController
       redirect_to home_path
     else
       @user = User.new
+      @user.email = params[:email]
     end
   end
 
-  def logging_in
+  def submitlogin
     session[:user_id] = nil
-    @user = User.find_by(email: params[:user][:email])
-    puts params[:user][:email]
-    puts params[:user][:password]
-    puts @user.authenticate(params[:user][:password])
-    if (@user && @user.authenticate(params[:user][:password]))
+    @email = params[:user][:email]
+    @password = params[:user][:password]
+    @user = User.find_by(email:@email)
+    if (@user && @user.authenticate(@password))
       redirect_to home_path, notice: "Successfully login."
       session[:user_id] = @user.id
     else
-      redirect_to login_path, alert: "Wrong username or password."
+      redirect_to login_path(email:@email), alert: "Wrong username or password."
     end
   end
 
@@ -43,10 +43,27 @@ class MainController < ApplicationController
   def register
     session[:user_id] = nil
     @user = User.new
+    @user.email = params[:email]
+    @user.display_name = params[:display_name]
+  end
+
+  def submitregister
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to login_path(email:@user.email), notice: "Successfully registered."
+    else
+      redirect_to register_path(email:@user.email,display_name:@user.display_name), alert: @user.errors.full_messages
+    end
   end
 
   def home
     @appointments = @user.appointments.sort_by{ |obj| obj.time_start }
   end
+
+  private
+
+    def user_params
+      params.require(:user).permit(:email, :password, :password_confirmation, :display_name)
+    end
 
 end

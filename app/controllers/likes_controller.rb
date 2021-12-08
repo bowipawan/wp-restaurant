@@ -8,17 +8,34 @@ class LikesController < ApplicationController
   def submitlike
     @comment = Comment.find(params[:id])
     @restaurant = Restaurant.find(@comment.restaurant_id)
-    if(params[:commit]=='Like')
-      Like.create(user:@user,comment:@comment).save
+    if (params[:commit]=='Like')
+      @dislike = Like.find_by(user:@user,comment:@comment,like_type:false)
+      if (@dislike != nil)
+        @dislike.destroy
+      end
+      Like.create(user:@user,comment:@comment,like_type:true).save
       redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have liked comment."
-    else
-      @like = Like.find_by(user:@user,comment:@comment)
+    elsif (params[:commit]=='Unlike')
+      @like = Like.find_by(user:@user,comment:@comment,like_type:true)
       if (@like != nil)
         @like.destroy
-        redirect_to showrestaurant_path(@restaurant.restaurant_name), alert: "You have unliked comment."
-      else
-        redirect_to showrestaurant_path(Restaurant.find(@comment.restaurant_id).restaurant_name)
       end
+      redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have unliked comment."
+    elsif (params[:commit]=='Dislike')
+      @like = Like.find_by(user:@user,comment:@comment,like_type:true)
+      if (@like != nil)
+        @like.destroy
+      end
+      Like.create(user:@user,comment:@comment,like_type:false).save
+      redirect_to showrestaurant_path(@restaurant.restaurant_name), alert: "You have disliked comment."
+    elsif (params[:commit]=='Undislike')
+      @dislike = Like.find_by(user:@user,comment:@comment,like_type:false)
+      if (@dislike != nil)
+        @dislike.destroy
+      end
+      redirect_to showrestaurant_path(@restaurant.restaurant_name), alert: "You have undisliked comment."
+    else
+      redirect_to showrestaurant_path(Restaurant.find(@comment.restaurant_id).restaurant_name)
     end
   end
 

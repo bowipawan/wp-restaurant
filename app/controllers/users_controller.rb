@@ -12,16 +12,14 @@ class UsersController < ApplicationController
     if(params[:commit]=='Delete')
       @user.destroy
       session[:id] = nil
-      redirect_to login_path
+      redirect_to login_path, alert: "Successfully delete account."
     elsif(params[:commit]=='Save')
-      respond_to do |format|
-        if @user.update(user_params)
-          format.html { redirect_to home_path, notice: "User was successfully updated." }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :profile, status: :unprocessable_entity }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
+      @new_name = params[:user][:display_name]
+      @old_name = @user.display_name
+      if @user.update(display_name:@new_name)
+        redirect_to home_path, notice: "You have changed display name from #{@old_name} to #{@user.display_name}."
+      else
+        redirect_to profile_path, alert: @user.errors.full_messages.to_sentence
       end
     else
       redirect_to home_path

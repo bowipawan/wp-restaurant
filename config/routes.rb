@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   #main
   get '/', to: "main#main", as: 'main'
   get 'login', to: "main#login", as: 'login'
-  post 'login', to: "main#logging_in"
+  post 'login', to: "main#submitlogin", as: 'submitlogin'
   get 'register', to: "main#register", as: 'register'
-  post 'register', to: "users#create"
+  post 'register', to: "main#submitregister", as: 'submitregister'
   get 'logout', to: "main#logout", as: 'logout'
   get 'home', to: "main#home", as: 'home'
   #appointment
@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   get 'restaurant/id/:restaurant_id', to: "restaurants#showrestaurantid", as: 'showrestaurantid'
   #user
   get 'profile', to: "users#profile", as: 'profile'
-  post 'profile/submit', to: "users#submitprofile", as: 'submitprofile'
+  post 'profile', to: "users#submitprofile", as: 'submitprofile'
   
 end

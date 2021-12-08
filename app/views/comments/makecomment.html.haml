@@ -10,4 +10,4 @@
 
   .form-actions
     = f.button :submit,'Comment', class:'btn btn-outline-success mt-2', action:'Comment'
-    = f.button :submit,'Back', class:'btn btn-outline-danger mt-2', action:'Back'
+    = link_to 'Back', showrestaurant_path(@restaurant.restaurant_name), class:'btn btn-outline-danger mt-2'
