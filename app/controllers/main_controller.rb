@@ -46,7 +46,7 @@ class MainController < ApplicationController
   end
 
   def home
-    @appointments = @user.appointments
+    @appointments = @user.appointments.sort_by{ |obj| obj.time_start }
   end
 
 end

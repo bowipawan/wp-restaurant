@@ -1,5 +1,10 @@
 %h1{:style=>"margin-bottom:50px"} #{@restaurant.restaurant_name}
 
+.div{class:[notice && "alert alert-success"]}
+  = notice
+.div{class:[alert && "alert alert-danger"]}
+  = alert
+
 %h3{:style=>"margin-bottom:30px"} Available Table
 
 %div{:style=>"margin-bottom:50px"}
@@ -42,10 +47,10 @@
         = o.select :time, [["10:00 - 12:00",10],["12:00 - 14:00",12],["14:00 - 16:00",14],["16:00 - 18:00",16],["18:00 - 20:00",18],["20:00 - 22:00",20]]
       %div
         = o.label :poeple, "People Amount", class:"h5", style:"width:200px"
-        = o.input_field :people, as: :numeric, min:1
+        = o.input_field :people, as: :numeric, min:1, required:true
 
   .form-actions
-    = f.button :submit,'Confirm', class:'btn btn-outline-success mt-2', action:'Confirm', data: { confirm: "You are booking #{@restaurant.restaurant_name} table #{params[:table_number]} at?" }
+    = f.button :submit,'Confirm', class:'btn btn-outline-success mt-2', action:'Confirm'
     = f.button :submit,'Back', class:'btn btn-outline-danger mt-2', action:'Back'
       
 

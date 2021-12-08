@@ -2,7 +2,7 @@
   - @appointments.each do |appointment|
     .card.mt-2{:style=>"width:200%"}
       .card-body.h5.card-title
-        %h6{:style=>"float:left"}
+        %h6{:style=>"float:left;width:60%"}
           .div
             = "Restaurant : "
             = link_to "#{Restaurant.find(Table.find(appointment.table_id).restaurant_id).restaurant_name}", showrestaurant_path(Restaurant.find(Table.find(appointment.table_id).restaurant_id).restaurant_name)
@@ -12,7 +12,11 @@
             = " - "
             = (appointment.time_start+2.hours).strftime("%k:%M")
         %h6
-          = "Table Number : "
-          = Table.find(appointment.table_id).table_number
+          .div
+            = "Table Number : "
+            = Table.find(appointment.table_id).table_number
+          .div
+            = "People Amount : "
+            = appointment.people_amount
         %div{:style=>"float:right"}
-          = link_to "Delete", deleteappointment_path(appointment.id), class:'btn btn-outline-danger'
+          = link_to "Delete", deleteappointment_path(appointment.id), class:'btn btn-outline-danger', data: { confirm: 'Are you sure to cancle this appointment?' }

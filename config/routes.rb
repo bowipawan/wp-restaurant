@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get 'home', to: "main#home", as: 'home'
   #appointment
   get 'appointment/:restaurant_name', to: "appointments#makeappointment", as: 'makeappointment'
-  post 'appointment/:restaurant_name/submit', to: "comments#submitappointment", as: 'submitappointment'
+  post 'appointment/:restaurant_name/submit', to: "appointments#submitappointment", as: 'submitappointment'
   get 'appointment/:id/delete', to: "appointments#delete", as: 'deleteappointment'
   #comment
   get 'comment/:restaurant_name', to: "comments#makecomment", as: 'makecomment'

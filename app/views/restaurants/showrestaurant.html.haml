@@ -24,7 +24,7 @@
 			-else
 				= f.button :submit,'Favorite',class:'btn btn-outline-success mt-2',action:'Favorite'
 	.div{style:"margin-bottom:15px"}
-		= link_to 'Booking', makeappointment_path(@restaurant.restaurant_name), class:"btn btn-outline-dark mt-2"
+		= link_to 'Appointment', makeappointment_path(@restaurant.restaurant_name), class:"btn btn-outline-dark mt-2"
 	.div{style:"margin-bottom:15px"}
 		= link_to 'Rate', makerate_path(@restaurant.restaurant_name), class:"btn btn-outline-dark mt-2"
 	.div

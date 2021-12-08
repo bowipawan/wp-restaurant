@@ -1,5 +1,10 @@
 %h1{:style=>"margin-bottom:50px"} Home
 
+.div{class:[alert && "alert alert-danger"]}
+	= alert
+.div{class:[notice && "alert alert-success"]}
+	= notice
+
 %div{:style=>"float:left"}
 	%h4 #{@user.display_name}
 	= link_to 'Edit Profile', profile_path, class:"btn btn-outline-dark mt-2"

@@ -6,7 +6,7 @@ class RestaurantsController < ApplicationController
   before_action :set_user, only: %i[ listrestaurant showrestaurant ]
 
   def listrestaurant
-    @restaurants = Restaurant.all
+    @restaurants = Restaurant.all.sort_by{ |obj| obj.restaurant_name }
   end
 
   def showrestaurant

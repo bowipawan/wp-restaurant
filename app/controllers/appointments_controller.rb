@@ -15,20 +15,39 @@ class AppointmentsController < ApplicationController
   end
 
   def submitappointment
-    @table = Table.find_by(table_number:params[:table_number])
     @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
-    if(params[:commit]=='Confirm')
-      @appointment = Appointment.new(appointment_params)
-      @appointment.save
-      redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have booked #{@restaurant.restaurant_name}."
-    else
+    if(params[:commit]=='Back')
       redirect_to showrestaurant_path(@restaurant.restaurant_name)
+    else
+      if (params[:other][:people] == "")
+        redirect_to makeappointment_path(@restaurant.restaurant_name), alert: "Please fill people amount."
+      else
+        @people_amount = params[:other][:people].to_i
+        @time_start = DateTime.now.change({ hour: params[:other][:time].to_i+7, min: 0, sec: 0 })
+        @table = Table.find_by(table_number:params[:other][:table_number],restaurant_id:@restaurant.id)
+        if (Appointment.find_by(table_id:@table.id,time_start:@time_start) != nil)
+          redirect_to makeappointment_path(@restaurant.restaurant_name), alert: "Your chosen table is full at that time. Please choose other table."
+        elsif (@people_amount > @table.customer_cap)
+          redirect_to makeappointment_path(@restaurant.restaurant_name), alert: "Your people amount exceed table capacity. Please choose other table."
+        else
+          @appointment = Appointment.new
+          @appointment.user_id = @user.id
+          @appointment.table_id = @table.id
+          @appointment.time_start = @time_start
+          @appointment.people_amount = @people_amount
+          if @appointment.save
+            redirect_to home_path, notice: "You have booked #{@restaurant.restaurant_name}."
+          else
+            redirect_to makeappointment_path(@restaurant.restaurant_name), alert: "Something went wrong. Please try again."
+          end
+        end
+      end
     end
   end
 
   def delete
     @appointment.destroy
-    redirect_to home_url, notice: "Appointment was successfully destroyed."
+    redirect_to home_url, notice: "You have canceled appointment."
   end
 
   # GET /appointments or /appointments.json
