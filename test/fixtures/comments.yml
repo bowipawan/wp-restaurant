@@ -3,9 +3,9 @@
 one:
   user: one
   restaurant: one
-  msg: MyString
+  msg: Great
 
 two:
   user: two
   restaurant: two
-  msg: MyString
+  msg: Good
