@@ -4,6 +4,7 @@ class CommentsTest < ApplicationSystemTestCase
   setup do
     @comment = comments(:one)
     @restaurant = restaurants(:one)
+    @user = nil
     @userone = users(:one)
     @usertwo = users(:two)
   end

@@ -9,3 +9,13 @@ two:
   customer_cap: 6
   table_number: 2
   restaurant: one
+
+three:
+  customer_cap: 8
+  table_number: 1
+  restaurant: two
+
+four:
+  customer_cap: 8
+  table_number: 2
+  restaurant: two

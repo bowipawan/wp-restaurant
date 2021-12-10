@@ -4,10 +4,16 @@ class RestaurantsTest < ApplicationSystemTestCase
   setup do
     @restaurant = restaurants(:one)
     @user = users(:one)
+    @userone = nil
   end
 
   test "visit restaurant page without login" do
     visit showrestaurant_url(@restaurant.restaurant_name)
+    assert_text "Please login"
+  end
+
+  test "visit restaurant list page without login" do
+    visit listrestaurant_url
     assert_text "Please login"
   end
 
@@ -23,15 +29,10 @@ class RestaurantsTest < ApplicationSystemTestCase
     assert_selector :link, "Rate"
     assert_selector :link, "Comment"
     assert_text @restaurant.restaurant_name
-  end
-
-  test "visit restaurant list page without login" do
-    visit listrestaurant_url
-    assert_text "Please login"
-  end
+  end 
 
   test "visit restaurant list page" do
-    # login  
+    # login
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
