@@ -4,62 +4,58 @@ class CommentsTest < ApplicationSystemTestCase
   setup do
     @comment = comments(:one)
     @restaurant = restaurants(:one)
-    @user = users(:one)
+    @userone = users(:one)
+    @usertwo = users(:two)
   end
 
-  test "comment restaurant" do
+  test "create first comment" do
     # login  
     visit login_url
-    fill_in "Email", with: @user.email
-    fill_in "Password", with: 'one'
+    fill_in "Email", with: @usertwo.email
+    fill_in "Password", with: 'two'
     click_on "Sign In"
-
+    # create comment
     visit showrestaurant_url(@restaurant.restaurant_name)
     click_on "Comment"
     assert_text "Comment #{@restaurant.restaurant_name}"
-    fill_in "msg", with: 'Amazing'
+    page.find('#msg', :visible => false).set("Amazing")
     click_on "Comment"
     assert_text"#{@restaurant.restaurant_name}"
     assert_text"Amazing"
   end
 
-  # test "visiting the index" do
-  #   visit comments_url
-  #   assert_selector "h1", text: "Comments"
-  # end
+  test "edit comment" do
+    # login  
+    visit login_url
+    fill_in "Email", with: @userone.email
+    fill_in "Password", with: 'one'
+    click_on "Sign In"
+    # edit comment
+    visit showrestaurant_url(@restaurant.restaurant_name)
+    click_on "Comment"
+    assert_text "Comment #{@restaurant.restaurant_name}"
+    assert_text @comment.msg
+    page.find('#msg', :visible => false).set("Wow")
+    click_on "Comment"
+    assert_text "#{@restaurant.restaurant_name}"
+    assert_text "You have edited comment for #{@restaurant.restaurant_name}"
+    assert_text "Wow"
+  end
 
-  # test "creating a Comment" do
-  #   visit comments_url
-  #   click_on "New Comment"
-
-  #   fill_in "Msg", with: @comment.msg
-  #   fill_in "Restaurant", with: @comment.restaurant_id
-  #   fill_in "User", with: @comment.user_id
-  #   click_on "Create Comment"
-
-  #   assert_text "Comment was successfully created"
-  #   click_on "Back"
-  # end
-
-  # test "updating a Comment" do
-  #   visit comments_url
-  #   click_on "Edit", match: :first
-
-  #   fill_in "Msg", with: @comment.msg
-  #   fill_in "Restaurant", with: @comment.restaurant_id
-  #   fill_in "User", with: @comment.user_id
-  #   click_on "Update Comment"
-
-  #   assert_text "Comment was successfully updated"
-  #   click_on "Back"
-  # end
-
-  # test "destroying a Comment" do
-  #   visit comments_url
-  #   page.accept_confirm do
-  #     click_on "Destroy", match: :first
-  #   end
-
-  #   assert_text "Comment was successfully destroyed"
-  # end
+  test "delete comment" do
+    # login
+    visit login_url
+    fill_in "Email", with: @userone.email
+    fill_in "Password", with: 'one'
+    click_on "Sign In"
+    # edit comment
+    visit showrestaurant_url(@restaurant.restaurant_name)
+    assert_text @comment.msg
+    assert_selector :link, "Delete"
+    page.accept_confirm do
+      click_on "Delete", match: :first
+    end
+    assert_no_text @comment.msg
+    assert_text "You have deleted comment"
+  end
 end

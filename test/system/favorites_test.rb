@@ -15,11 +15,9 @@ class FavoritesTest < ApplicationSystemTestCase
     click_on "Sign In"
 
     visit showrestaurant_url(@restaurant.restaurant_name)
-    click_on "Favorite"
+    page.first(:button, "Unfavorite").click
     assert_text "You have unfavorite"
-    page.accept_confirm do
-      click_on "Unfavorite"
-    end
+    page.first(:button, "Favorite").click
     assert_text "You have favorite"
   end
 
@@ -36,25 +34,4 @@ class FavoritesTest < ApplicationSystemTestCase
     end
     assert_text "Favorite Restaurants"
   end
-
-  # test "updating a Favorite" do
-  #   visit favorites_url
-  #   click_on "Edit", match: :first
-
-  #   fill_in "Restaurant", with: @favorite.restaurant_id
-  #   fill_in "User", with: @favorite.user_id
-  #   click_on "Update Favorite"
-
-  #   assert_text "Favorite was successfully updated"
-  #   click_on "Back"
-  # end
-
-  # test "destroying a Favorite" do
-  #   visit favorites_url
-  #   page.accept_confirm do
-  #     click_on "Destroy", match: :first
-  #   end
-
-  #   assert_text "Favorite was successfully destroyed"
-  # end
 end

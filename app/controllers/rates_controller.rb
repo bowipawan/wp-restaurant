@@ -9,7 +9,7 @@ class RatesController < ApplicationController
     @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
     @rate = Rate.find_by(user_id:@user.id)
     if (@rate == nil)
-      @rate = Comment.new
+      @rate = Rate.new
     end
   end
 

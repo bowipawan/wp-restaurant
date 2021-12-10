@@ -4,8 +4,3 @@ one:
   user: one
   restaurant: one
   msg: Great
-
-two:
-  user: two
-  restaurant: two
-  msg: Good

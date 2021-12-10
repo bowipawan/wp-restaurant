@@ -3,9 +3,4 @@
 one:
   user: one
   restaurant: one
-  rate_score: 1
-
-two:
-  user: two
-  restaurant: two
-  rate_score: 1
+  rate_score: 3

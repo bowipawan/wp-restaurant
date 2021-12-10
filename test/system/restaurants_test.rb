@@ -3,41 +3,35 @@ require "application_system_test_case"
 class RestaurantsTest < ApplicationSystemTestCase
   setup do
     @restaurant = restaurants(:one)
+    @user = users(:one)
   end
 
-  # test "visiting the index" do
-  #   visit restaurants_url
-  #   assert_selector "h1", text: "Restaurants"
-  # end
+  test "visit restaurant page" do
+    # login  
+    visit login_url
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: 'one'
+    click_on "Sign In"
 
-  # test "creating a Restaurant" do
-  #   visit restaurants_url
-  #   click_on "New Restaurant"
+    visit showrestaurant_url(@restaurant.restaurant_name)
+    assert_selector :link, "Appointment"
+    assert_selector :link, "Rate"
+    assert_selector :link, "Comment"
+    assert_text @restaurant.restaurant_name
+  end
 
-  #   fill_in "Restaurant name", with: @restaurant.restaurant_name
-  #   click_on "Create Restaurant"
+  test "visit restaurant list page" do
+    # login  
+    visit login_url
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: 'one'
+    click_on "Sign In"
 
-  #   assert_text "Restaurant was successfully created"
-  #   click_on "Back"
-  # end
-
-  # test "updating a Restaurant" do
-  #   visit restaurants_url
-  #   click_on "Edit", match: :first
-
-  #   fill_in "Restaurant name", with: @restaurant.restaurant_name
-  #   click_on "Update Restaurant"
-
-  #   assert_text "Restaurant was successfully updated"
-  #   click_on "Back"
-  # end
-
-  # test "destroying a Restaurant" do
-  #   visit restaurants_url
-  #   page.accept_confirm do
-  #     click_on "Destroy", match: :first
-  #   end
-
-  #   assert_text "Restaurant was successfully destroyed"
-  # end
+    visit listrestaurant_url
+    assert_text "Restaurant"
+    assert_text "Max Table"
+    assert_text "Rate"
+    assert_selector :table
+    assert_selector :link, "Go"
+  end
 end
