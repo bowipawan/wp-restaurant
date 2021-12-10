@@ -5,9 +5,19 @@ class MainsTest < ApplicationSystemTestCase
     @user = users(:one)
   end
 
-  test "visiting home page without login" do
+  test "visit home page without login" do
     visit home_url
-    assert_text "Please login."
+    assert_text "Please login"
+  end
+
+  test "visit login page with login" do
+    visit login_url
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: 'one'
+    click_on "Sign In"
+    assert_text "Successfully login"
+    visit login_url
+    assert_text "Home"
   end
 
   test "login with correct password" do
@@ -15,7 +25,7 @@ class MainsTest < ApplicationSystemTestCase
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
     click_on "Sign In"
-    assert_text "Successfully login."
+    assert_text "Successfully login"
   end
 
   test "login with wrong password" do
@@ -23,7 +33,16 @@ class MainsTest < ApplicationSystemTestCase
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'two'
     click_on "Sign In"
-    assert_text "Wrong username or password."
+    assert_text "Wrong username or password"
+  end
+
+  test "logout" do
+    visit login_url
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: 'one'
+    click_on "Sign In"
+    find('.h6', :text => 'Sign Out').click
+    assert_text "Successfully logout"
   end
 
   test "register" do

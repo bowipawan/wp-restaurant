@@ -6,6 +6,11 @@ class RestaurantsTest < ApplicationSystemTestCase
     @user = users(:one)
   end
 
+  test "visit restaurant page without login" do
+    visit showrestaurant_url(@restaurant.restaurant_name)
+    assert_text "Please login"
+  end
+
   test "visit restaurant page" do
     # login  
     visit login_url
@@ -18,6 +23,11 @@ class RestaurantsTest < ApplicationSystemTestCase
     assert_selector :link, "Rate"
     assert_selector :link, "Comment"
     assert_text @restaurant.restaurant_name
+  end
+
+  test "visit restaurant list page without login" do
+    visit listrestaurant_url
+    assert_text "Please login"
   end
 
   test "visit restaurant list page" do

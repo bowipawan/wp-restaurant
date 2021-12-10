@@ -5,7 +5,7 @@
   .form-inputs{style:"margin-bottom:10px"}
     %div{style:"margin-bottom:10px"}
       = f.label :display_name, required:false
-      = f.input_field :display_name, required:false
+      = f.input_field :display_name, required:false, id:"display_name"
     / %h6
     /   = link_to 'Delete account', deleteuser_path(user_id:@user.id), style:'color:red; text-decoration:underline;', data: { confirm: 'Are you sure to delete this account?' }
 
