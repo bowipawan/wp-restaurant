@@ -38,15 +38,9 @@
 
   .form-inputs
     = simple_fields_for :other do |o|
-      %div
-        = o.label :table_number, "Choose Table", class:"h5", style:"width:200px"
-        = o.select :table_number, @restaurant.tables.map { |table| table.table_number}, id:"table_number"
-      %div
-        = o.label :time, "Choose Time", class:"h5", style:"width:200px"
-        = o.select :time, [["10:00 - 12:00",10],["12:00 - 14:00",12],["14:00 - 16:00",14],["16:00 - 18:00",16],["18:00 - 20:00",18],["20:00 - 22:00",20]], id:"time"
-      %div
-        = o.label :people, "People Amount", class:"h5", style:"width:200px"
-        = o.input_field :people, as: :numeric, min:1, required:true, id:"people"
+      = o.input :table_number, label:"Choose Table", collection:@restaurant.tables.map { |table| table.table_number}, id:"table_number"
+      = o.input :time, label:"Choose Time", collection:[["10:00 - 12:00",10],["12:00 - 14:00",12],["14:00 - 16:00",14],["16:00 - 18:00",16],["18:00 - 20:00",18],["20:00 - 22:00",20]], id:"time"
+      = o.input :people, label:"People Amount", as: :numeric, min:1, required:true, id:"people"
 
   .form-actions
     = f.button :submit,'Confirm', class:'btn btn-outline-success mt-2', action:'Confirm'

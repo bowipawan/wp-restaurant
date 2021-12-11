@@ -4,7 +4,6 @@ class RestaurantsTest < ApplicationSystemTestCase
   setup do
     @restaurant = restaurants(:one)
     @user = users(:one)
-    @userone = nil
   end
 
   test "visit restaurant page without login" do

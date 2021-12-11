@@ -44,8 +44,9 @@ class AppointmentsTest < ApplicationSystemTestCase
     assert_text "Choose Table"
     assert_text "Choose Time"
     assert_text "People Amount"
-
-    page.find("#people", :visible => false).set("3")
+    select "2", from: "Choose Table"
+    select "14:00 - 16:00", from: "Choose Time"
+    fill_in "People Amount", with: "3"
     click_on "Confirm"
     assert_text "You have booked #{@restauranttwo.restaurant_name}"
     assert_text "Restaurant : #{@restauranttwo.restaurant_name}"
@@ -66,8 +67,9 @@ class AppointmentsTest < ApplicationSystemTestCase
     assert_text "Choose Table"
     assert_text "Choose Time"
     assert_text "People Amount"
-
-    page.find("#people", :visible => false).set("3")
+    select "2", from: "Choose Table"
+    select "14:00 - 16:00", from: "Choose Time"
+    fill_in "People Amount", with: "3"
     click_on "Confirm"
     assert_text "You have booked #{@restauranttwo.restaurant_name}"
     assert_text "Restaurant : #{@restauranttwo.restaurant_name}"
@@ -80,8 +82,9 @@ class AppointmentsTest < ApplicationSystemTestCase
     assert_text "Choose Table"
     assert_text "Choose Time"
     assert_text "People Amount"
-
-    page.find("#people", :visible => false).set("3")
+    select "2", from: "Choose Table"
+    select "14:00 - 16:00", from: "Choose Time"
+    fill_in "People Amount", with: "3"
     click_on "Confirm"
     assert_text "Your chosen table is full at that time. Please choose other table"
   end
@@ -99,7 +102,9 @@ class AppointmentsTest < ApplicationSystemTestCase
     assert_text "Choose Time"
     assert_text "People Amount"
 
-    page.find("#people", :visible => false).set("99")
+    select "2", from: "Choose Table"
+    select "14:00 - 16:00", from: "Choose Time"
+    fill_in "People Amount", with: "99"
     click_on "Confirm"
     assert_text "Your people amount exceed table capacity. Please choose other table"
   end
@@ -116,7 +121,8 @@ class AppointmentsTest < ApplicationSystemTestCase
     assert_text "Choose Table"
     assert_text "Choose Time"
     assert_text "People Amount"
-
+    select "2", from: "Choose Table"
+    select "14:00 - 16:00", from: "Choose Time"
     click_on "Confirm"
     assert_text "Please fill people amount"
   end
