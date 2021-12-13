@@ -9,6 +9,7 @@ class FavoritesTest < ApplicationSystemTestCase
 
   test "favorite and unfavorite at restaurant page" do
     # login
+    sleep(2)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
@@ -23,6 +24,7 @@ class FavoritesTest < ApplicationSystemTestCase
 
   test "unfavorite at favorite page" do
     # login
+    sleep(1)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'

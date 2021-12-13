@@ -7,7 +7,7 @@
   .form-inputs
     %div
       = f.label :rate_score, "Score (0-5)", style:"width:150px"
-      = f.input_field :rate_score, min:"0", max:"5", placeholder: "Choose rating", required:true, id:"rate"
+      = f.input_field :rate_score, min:"0", max:"5", placeholder: "Choose rating", required:true, id:"rate", collection: [0,1,2,3,4,5], selected:0
 
   .form-actions
     = f.button :submit,'Rate', class:'btn btn-outline-success mt-2', action:'Rate'

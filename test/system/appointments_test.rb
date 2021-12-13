@@ -6,10 +6,13 @@ class AppointmentsTest < ApplicationSystemTestCase
     @restaurantone = restaurants(:one)
     @restauranttwo = restaurants(:two)
     @user = users(:one)
+    @userone = nil
+    @usertwo = nil
   end
 
   test "show appointment in home page" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
@@ -20,6 +23,7 @@ class AppointmentsTest < ApplicationSystemTestCase
 
   test "delete appointment in home page" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
@@ -34,6 +38,7 @@ class AppointmentsTest < ApplicationSystemTestCase
 
   test "create appointment" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
@@ -57,6 +62,7 @@ class AppointmentsTest < ApplicationSystemTestCase
 
   test "create existing appointment" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
@@ -91,6 +97,7 @@ class AppointmentsTest < ApplicationSystemTestCase
 
   test "create appointment with exceed people amount" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
@@ -111,6 +118,7 @@ class AppointmentsTest < ApplicationSystemTestCase
 
   test "create appointment with no people amount" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'

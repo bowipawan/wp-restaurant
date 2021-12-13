@@ -7,6 +7,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test "visit profile page with login" do
     # login  
+    sleep(2)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'
@@ -25,6 +26,7 @@ class UsersTest < ApplicationSystemTestCase
 
   test "edit display name" do
     # login  
+    sleep(2)
     visit login_url
     fill_in "Email", with: @user.email
     fill_in "Password", with: 'one'

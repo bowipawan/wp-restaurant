@@ -15,21 +15,25 @@ class RatesController < ApplicationController
 
   def submitrate
     @restaurant = Restaurant.find_by(restaurant_name:params[:restaurant_name])
-    if(params[:commit]=='Rate')
-      @rate = Rate.find_by(user_id:@user.id)
-      if (@rate == nil)
-        @rate = Rate.new(rate_params)
-        @rate.restaurant_id = @restaurant.id
-        @rate.user_id = @user.id
-        redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have rated #{@restaurant.restaurant_name} with score #{@rate.rate_score}."
-      else
-        @old_rate = @rate.rate_score
-        @rate.update(rate_params)
-        redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have changed rate for #{@restaurant.restaurant_name} from score #{@old_rate} to #{@rate.rate_score}."
-      end
-      @rate.save
+    if not ["0","1","2","3","4","5"].include?(params[:rate][:rate_score])
+      redirect_to makerate_path(@restaurant.restaurant_name), alert: "Rate score must be integer between 0-5."
     else
-      redirect_to showrestaurant_path(@restaurant.restaurant_name)
+      if(params[:commit]=='Rate')
+        @rate = Rate.find_by(user_id:@user.id)
+        if (@rate == nil)
+          @rate = Rate.new(rate_params)
+          @rate.restaurant_id = @restaurant.id
+          @rate.user_id = @user.id
+          redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have rated #{@restaurant.restaurant_name} with score #{@rate.rate_score}."
+        else
+          @old_rate = @rate.rate_score
+          @rate.update(rate_params)
+          redirect_to showrestaurant_path(@restaurant.restaurant_name), notice: "You have changed rate for #{@restaurant.restaurant_name} from score #{@old_rate} to #{@rate.rate_score}."
+        end
+        @rate.save
+      else
+        redirect_to showrestaurant_path(@restaurant.restaurant_name)
+      end
     end
   end
 

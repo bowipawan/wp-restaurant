@@ -4,12 +4,14 @@ class RatesTest < ApplicationSystemTestCase
   setup do
     @rate = rates(:one)
     @restaurant = restaurants(:one)
+    @user = nil
     @userone = users(:one)
     @usertwo = users(:two)
   end
 
   test "create first rate" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @usertwo.email
     fill_in "Password", with: 'two'
@@ -27,6 +29,7 @@ class RatesTest < ApplicationSystemTestCase
 
   test "edit rate" do
     # login  
+    sleep(1)
     visit login_url
     fill_in "Email", with: @userone.email
     fill_in "Password", with: 'one'

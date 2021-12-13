@@ -38,8 +38,8 @@
 
   .form-inputs
     = simple_fields_for :other do |o|
-      = o.input :table_number, label:"Choose Table", collection:@restaurant.tables.map { |table| table.table_number}, id:"table_number"
-      = o.input :time, label:"Choose Time", collection:[["10:00 - 12:00",10],["12:00 - 14:00",12],["14:00 - 16:00",14],["16:00 - 18:00",16],["18:00 - 20:00",18],["20:00 - 22:00",20]], id:"time"
+      = o.input :table_number, label:"Choose Table", collection:@restaurant.tables.map { |table| table.table_number}, id:"table_number", selected:@restaurant.tables.map { |table| table.table_number}[0]
+      = o.input :time, label:"Choose Time", collection:[["10:00 - 12:00",10],["12:00 - 14:00",12],["14:00 - 16:00",14],["16:00 - 18:00",16],["18:00 - 20:00",18],["20:00 - 22:00",20]], id:"time", selected:"10:00 - 12:00"
       = o.input :people, label:"People Amount", as: :numeric, min:1, required:true, id:"people"
 
   .form-actions
